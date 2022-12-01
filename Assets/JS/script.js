@@ -31,3 +31,4 @@
 // ------> form with name to save score
 // --> previous highscores are shown
 // --> clear highscores button is shown
+

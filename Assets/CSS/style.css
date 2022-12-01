@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+#HS-link {
+    text-decoration: none;
+}
+
+.timer {
+    float: right;
+}
+
+body {
+    font-size: 30px;
+    font-family: "Roboto", sans-serif;
+    background-color: #eff5f8;
+    color: #000000;
+}
+
+.quiz-area {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 600px;
+    margin: 25%;
+    text-align: center;
+}
+
+#start-button {
+    font-size: 100%;
+    width: 50%;
+    height: 60px;
+    align-items: center;
+    margin: 0 25%;
+}
