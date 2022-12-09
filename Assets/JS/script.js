@@ -52,46 +52,47 @@ var quizContent = [
     {
         question: "How can you make a bulleted list?",
         Answers: [
-            {A : '<ol>'},
-            {B : '<a>'},
-            {C : '<ul>'},
-            {D : '<span>'}
+            '<ol>',
+            '<a>',
+            '<ul>',
+            '<span>'
         ],
         correctAnswer: '<ul>',
     },
     {
         question: 'To access an HTML element from JavaScript, you can use this method',
         Answers: [
-            A = 'getElementById()',
-            B = 'giveMeHTML()',
-            C = 'retrieveElementPlease()',
-            D = 'Java.getScript(element.id)'
+            'getElementById()',
+            'giveMeHTML()',
+            'retrieveElementPlease()',
+            'Java.getScript(element.id)'
         ],
         correctAnswer: 'getElementById()',
     },
     {
         question: 'Single line comments stat with this',
         Answers: [
-            A ='//',
-            B = '>>>>>>>',
-            C = 'Comment-here=',
-            D = '<comm>'
-    
+            '//',
+            '>>>>>>>',
+            'Comment-here=',
+            '<comm>'
+
         ],
         correctAnswer: '//',
     },
     {
         question: 'This is used to declare a javascript variable',
         Answers: [
-            A ='jvariable',
-            B = 'number =',
-            C = 'declare(var)',
-            D = 'var',
+            'jvariable',
+            'number =',
+            'declare(var)',
+            'var',
         ],
         correctAnswer: 'var',
     }
 ];
 
+var count = 0;
 
 startBtn.addEventListener('click', function (event) {
     event.preventDefault();
@@ -105,25 +106,48 @@ function startGame() {
     // hide instructions when quiz starts
     hideTxt.textContent = '';
     startBtn.style.display = 'none';
-    var count = 0;
+    var score = 0;
 
-    renderQuiz(count);
+    renderQuiz(count, score);
 };
 
-function renderQuiz(count) {
+function renderQuiz(count, score) {
     // make question appear on screen.  access quizContent array element
     // 'question' via 'count' global var
-    questionHead.textContent = 'Question ' + i + ': ' + quizContent[count].question;
+    if (count < 5) {
+        questionHead.textContent = 'Question ' + i + ': ' + quizContent[count].question;
 
-
-    for(var i = 0; i < 4; i++){
-        var button = document.createElement('button');
-        button.type = 'button';
-        button.textContent = quizContent[count].Answers[i];
-
-
-        bttnList.appendChild(button);
+        for (var i = 0; i < 4; i++) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = quizContent[count].Answers[i];
+            bttnEl.appendChild(button);
+        };
+    } else {
+        console.log('go to highscores');
+        window.location.replace('./highscores.html');
+        return;
     };
+    checkAnswer(count, score);
 };
 
-console.log(quizContent)
+function checkAnswer(count, score) {
+    bttnEl.addEventListener('click', function (event) {
+        var selectedAnswer = event.target.textContent;
+        console.log(selectedAnswer);
+
+        if (selectedAnswer == quizContent[count].correctAnswer) {
+            score++;
+        };
+        count++;
+        init();
+        renderQuiz(count);
+    })
+};
+
+function init() {
+        bttnList.removeChild(bttnEl);
+        bttnEl = document.createElement('ul');
+        bttnEl.className = 'options-list';
+        bttnList.appendChild(bttnEl);
+};

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code-Quiz game</title>
+    <link rel="stylesheet" href="./Assets/CSS/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="./index.html">
+            <button class="return-button">Play again?</button>
+        </a>
+    </header>
+    <container class="score-page">
+        <h1 id="highscore-header">
+            <!-- the question will show on screen here -->
+            Highscores:
+            <hr>
+        </h1>
+
+        <!--this list will be populated with highscore player names-->
+        <label for="name">Player name</label>
+        <ol id="highscores name"></ol>
+        <!--this list will populate with player scores-->
+        <label for="scores">High score</label>
+        <ol id="highscores scores"></ol>
+
+    </container>
+</body>
+    <script src="./Assets/JS/script.js"></script>
+</html>
