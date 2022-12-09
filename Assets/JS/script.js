@@ -36,62 +36,62 @@ var startBtn = document.querySelector('#start-button');
 var questionHead = document.querySelector('#question-line');
 var hideTxt = document.querySelector('#rules');
 var bttnList = document.querySelector('.options');
+var bttnEl = document.querySelector('.options-list');
 
 var quizContent = [
     {
         question: "What is the correct HTML element for the largest heading?",
-        incorrectAnswers: [
+        Answers: [
             '<div>',
+            '<h1>',
             '<body>',
             '<heading_large>'
         ],
-        correctAnswer: '<h1>'
+        correctAnswer: '<h1>',
     },
     {
         question: "How can you make a bulleted list?",
-        incorrectAnswers: [
-            '<ol>',
-            '<a>',
-            '<span>'
+        Answers: [
+            {A : '<ol>'},
+            {B : '<a>'},
+            {C : '<ul>'},
+            {D : '<span>'}
         ],
-        correctAnswer: '<ul>'
+        correctAnswer: '<ul>',
     },
     {
         question: 'To access an HTML element from JavaScript, you can use this method',
-        incorrectAnswers: [
-            'giveMeHTML()',
-            'retrieveElementPlease()',
-            'Java.getScript(element.id)'
+        Answers: [
+            A = 'getElementById()',
+            B = 'giveMeHTML()',
+            C = 'retrieveElementPlease()',
+            D = 'Java.getScript(element.id)'
         ],
-        correctAnswer: 'getElementById()'
+        correctAnswer: 'getElementById()',
     },
     {
         question: 'Single line comments stat with this',
-        incorrectAnswers: [
-            '>>>>>>>',
-            'Comment-here=',
-            '<comm>'
+        Answers: [
+            A ='//',
+            B = '>>>>>>>',
+            C = 'Comment-here=',
+            D = '<comm>'
+    
         ],
-        correctAnswer: '//'
+        correctAnswer: '//',
     },
     {
         question: 'This is used to declare a javascript variable',
-        incorrectAnswers: [
-            'jvariable',
-            'number =',
-            'declare(var)'
+        Answers: [
+            A ='jvariable',
+            B = 'number =',
+            C = 'declare(var)',
+            D = 'var',
         ],
-        correctAnswer: 'var'
+        correctAnswer: 'var',
     }
 ];
 
-var answers = [
-    "<h1>",
-    "<ul>",
-    'getElementById()',
-    '//',
-    'var'
-];
 
 startBtn.addEventListener('click', function (event) {
     event.preventDefault();
@@ -101,12 +101,29 @@ startBtn.addEventListener('click', function (event) {
 
 
 
-
-
 function startGame() {
+    // hide instructions when quiz starts
     hideTxt.textContent = '';
+    startBtn.style.display = 'none';
+    var count = 0;
 
-    for (var i = 0; i < questions.length; i++) {
-        questionHead.textContent = 'Question ' + i + ': ' + questions[i];
+    renderQuiz(count);
+};
+
+function renderQuiz(count) {
+    // make question appear on screen.  access quizContent array element
+    // 'question' via 'count' global var
+    questionHead.textContent = 'Question ' + i + ': ' + quizContent[count].question;
+
+
+    for(var i = 0; i < 4; i++){
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = quizContent[count].Answers[i];
+
+
+        bttnList.appendChild(button);
     };
 };
+
+console.log(quizContent)
