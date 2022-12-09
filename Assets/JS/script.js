@@ -37,6 +37,7 @@ var questionHead = document.querySelector('#question-line');
 var hideTxt = document.querySelector('#rules');
 var bttnList = document.querySelector('.options');
 var bttnEl = document.querySelector('.options-list');
+var highScoreName;
 
 var quizContent = [
     {
@@ -95,6 +96,7 @@ var quizContent = [
 var count = 0;
 var scoreName;
 
+// start the game on button click
 startBtn.addEventListener('click', function (event) {
     event.preventDefault();
     startGame();
@@ -109,6 +111,7 @@ function startGame() {
     startBtn.style.display = 'none';
     var score = 0;
 
+    // send the count and score variables to keep the values updated
     renderQuiz(count, score);
 };
 
@@ -125,9 +128,7 @@ function renderQuiz(count, score) {
             bttnEl.appendChild(button);
         };
     } else {    // At the end of game (count iterations) will send user to highscores
-        scoreName = prompt('please enter name for highscores');
-        window.location.replace('./highscores.html');
-        logHighScore(scoreName, score);
+        logHighScore(score);
         return;
     };
     checkAnswer(count, score);
@@ -149,12 +150,48 @@ function checkAnswer(count, score) {
 };
 
 function init() {
-        bttnList.removeChild(bttnEl);
-        bttnEl = document.createElement('ul');
-        bttnEl.className = 'options-list';
-        bttnList.appendChild(bttnEl);
+    questionHead.textContent = '';
+
+    bttnList.removeChild(bttnEl);
+    bttnEl = document.createElement('ul');
+    bttnEl.className = 'options-list';
+    bttnList.appendChild(bttnEl);
 };
 
-function logHighScore(scoreName, score) {
-    localStorage.setItem(scoreName, score);
+function logHighScore(score) {
+    // clean up page 
+    init();
+
+    // build a prompt on page to enter name for score save
+    var scoreSubmit = document.querySelector('.highscore-submit');
+
+    questionHead.textContent = 'Well done!, your score is: ' + score;
+
+    // input for name linked to high score
+    var playerName = document.createElement('input');
+    playerName.className = 'score-name';
+    playerName.type = 'text';
+    playerName.placeholder = 'Enter player name: ';
+
+    // append to the high score placeholder of HTML
+    scoreSubmit.appendChild(playerName);
+    // submit button for input
+    var submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Submit';
+    submitBtn.type = 'submit';
+    submitBtn.className = 'score-name';
+    // again, append to the high score section of HTML
+    scoreSubmit.appendChild(submitBtn);
+
+    // Upon submit, redirect page to highscores HTML
+    submitBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        console.log(event.target);
+        localStorage.setItem(playerName.value, score);
+        window.location.replace('./highscores.html');
+    });
+
+
+
+
 };
