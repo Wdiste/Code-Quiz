@@ -32,3 +32,41 @@
 // --> previous highscores are shown
 // --> clear highscores button is shown
 
+var startBtn = document.querySelector('#start-button');
+var questionHead = document.querySelector('#question-line');
+var hideTxt = document.querySelector('#rules');
+var bttnList = document.querySelector('.options');
+
+var questions = [
+    "What is the correct HTML element for the largest heading?",
+    "How can you make a bulleted list?",
+    'To access an HTML element from JavaScript, you can use this method',
+    'Single line comments stat with this',
+    'This is used to declare a javascript variable'
+];
+
+var answers = [
+    "<h1>",
+    "<ul>",
+    'getElementById()',
+    '//',
+    'var'
+];
+
+startBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    startGame();
+    return;
+});
+
+
+
+
+
+function startGame() {
+    hideTxt.textContent = '';
+
+    for(var i = 0; i < questions.length; i++){
+        questionHead.textContent = 'Question ' + i + ': ' + questions[i];
+    };
+};
