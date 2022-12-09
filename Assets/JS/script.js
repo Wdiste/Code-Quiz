@@ -37,12 +37,52 @@ var questionHead = document.querySelector('#question-line');
 var hideTxt = document.querySelector('#rules');
 var bttnList = document.querySelector('.options');
 
-var questions = [
-    "What is the correct HTML element for the largest heading?",
-    "How can you make a bulleted list?",
-    'To access an HTML element from JavaScript, you can use this method',
-    'Single line comments stat with this',
-    'This is used to declare a javascript variable'
+var quizContent = [
+    {
+        question: "What is the correct HTML element for the largest heading?",
+        incorrectAnswers: [
+            '<div>',
+            '<body>',
+            '<heading_large>'
+        ],
+        correctAnswer: '<h1>'
+    },
+    {
+        question: "How can you make a bulleted list?",
+        incorrectAnswers: [
+            '<ol>',
+            '<a>',
+            '<span>'
+        ],
+        correctAnswer: '<ul>'
+    },
+    {
+        question: 'To access an HTML element from JavaScript, you can use this method',
+        incorrectAnswers: [
+            'giveMeHTML()',
+            'retrieveElementPlease()',
+            'Java.getScript(element.id)'
+        ],
+        correctAnswer: 'getElementById()'
+    },
+    {
+        question: 'Single line comments stat with this',
+        incorrectAnswers: [
+            '>>>>>>>',
+            'Comment-here=',
+            '<comm>'
+        ],
+        correctAnswer: '//'
+    },
+    {
+        question: 'This is used to declare a javascript variable',
+        incorrectAnswers: [
+            'jvariable',
+            'number =',
+            'declare(var)'
+        ],
+        correctAnswer: 'var'
+    }
 ];
 
 var answers = [
@@ -53,7 +93,7 @@ var answers = [
     'var'
 ];
 
-startBtn.addEventListener('click', function(event) {
+startBtn.addEventListener('click', function (event) {
     event.preventDefault();
     startGame();
     return;
@@ -66,7 +106,7 @@ startBtn.addEventListener('click', function(event) {
 function startGame() {
     hideTxt.textContent = '';
 
-    for(var i = 0; i < questions.length; i++){
+    for (var i = 0; i < questions.length; i++) {
         questionHead.textContent = 'Question ' + i + ': ' + questions[i];
     };
 };
