@@ -93,6 +93,7 @@ var quizContent = [
 ];
 
 var count = 0;
+var scoreName;
 
 startBtn.addEventListener('click', function (event) {
     event.preventDefault();
@@ -123,9 +124,10 @@ function renderQuiz(count, score) {
             button.textContent = quizContent[count].Answers[i];
             bttnEl.appendChild(button);
         };
-    } else {
-        console.log('go to highscores');
+    } else {    // At the end of game (count iterations) will send user to highscores
+        scoreName = prompt('please enter name for highscores');
         window.location.replace('./highscores.html');
+        logHighScore(scoreName, score);
         return;
     };
     checkAnswer(count, score);
@@ -138,10 +140,11 @@ function checkAnswer(count, score) {
 
         if (selectedAnswer == quizContent[count].correctAnswer) {
             score++;
+            console.log(score);
         };
         count++;
         init();
-        renderQuiz(count);
+        renderQuiz(count, score);
     })
 };
 
@@ -150,4 +153,8 @@ function init() {
         bttnEl = document.createElement('ul');
         bttnEl.className = 'options-list';
         bttnList.appendChild(bttnEl);
+};
+
+function logHighScore(scoreName, score) {
+    localStorage.setItem(scoreName, score);
 };
