@@ -37,8 +37,24 @@ var questionHead = document.querySelector('#question-line');
 var hideTxt = document.querySelector('#rules');
 var bttnList = document.querySelector('.options');
 var bttnEl = document.querySelector('.options-list');
-var highScoreName;
 
+// retrieve highscore name array from localData to update it 
+// parse that JSON or the array of names wont save 
+// var highscoresNameList = [];
+highscoresNameList = JSON.parse(localStorage.getItem('highscoresNameList'));
+
+// !!!!!!! without this code, the name list will default to null and wont populate
+if (highscoresNameList === null) {
+    highscoresNameList = [];
+}
+// !! same here with the score
+var highScoreCount = JSON.parse(localStorage.getItem('highScoreCount'));
+console.log('high', highScoreCount)
+if (highScoreCount === null) {
+    highScoreCount = 0;
+}
+
+// array of objects with information for the questions/answers
 var quizContent = [
     {
         question: "What is the correct HTML element for the largest heading?",
@@ -93,8 +109,8 @@ var quizContent = [
     }
 ];
 
+// count of quiz questions answered
 var count = 0;
-var scoreName;
 
 // start the game on button click
 startBtn.addEventListener('click', function (event) {
@@ -118,14 +134,18 @@ function startGame() {
 function renderQuiz(count, score) {
     // make question appear on screen.  access quizContent array element
     // 'question' via 'count' global var
+
+    // count is universal so we know when to stop, regardless of how many times checkAnswer calls the function
     if (count < 5) {
         questionHead.textContent = 'Question ' + i + ': ' + quizContent[count].question;
 
         for (var i = 0; i < 4; i++) {
+            var buttonList = document.createElement('ul');
             var button = document.createElement('button');
             button.type = 'button';
             button.textContent = quizContent[count].Answers[i];
-            bttnEl.appendChild(button);
+            buttonList.appendChild(button);
+            bttnEl.appendChild(buttonList);
         };
     } else {    // At the end of game (count iterations) will send user to highscores
         logHighScore(score);
@@ -139,10 +159,13 @@ function checkAnswer(count, score) {
         var selectedAnswer = event.target.textContent;
         console.log(selectedAnswer);
 
+        // checks the button pressed's text area against the correct answer element
         if (selectedAnswer == quizContent[count].correctAnswer) {
             score++;
             console.log(score);
         };
+        // record another iteration, clean the area, play the quiz again
+        // make sure to pass along the variables, they dont like to work globally sometimes
         count++;
         init();
         renderQuiz(count, score);
@@ -175,11 +198,13 @@ function logHighScore(score) {
 
     // append to the high score placeholder of HTML
     scoreSubmit.appendChild(playerName);
+
     // submit button for input
     var submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
     submitBtn.type = 'submit';
     submitBtn.className = 'score-name';
+
     // again, append to the high score section of HTML
     scoreSubmit.appendChild(submitBtn);
 
@@ -187,11 +212,23 @@ function logHighScore(score) {
     submitBtn.addEventListener('click', function (event) {
         event.preventDefault();
         console.log(event.target);
+
+        // increase the highScoreCount on both pages
+        highScoreCount++;
+
+
+        // save names in array then pass to the localdata for matchup with key 
+        highscoresNameList.push(playerName.value);
+
+        localStorage.setItem('highScoreCount', highScoreCount);
         localStorage.setItem(playerName.value, score);
+        localStorage.setItem('highscoresNameList', JSON.stringify(highscoresNameList));
         window.location.replace('./highscores.html');
+
     });
 
-
+    // let highscorePageButton = document.querySelector('HS-link');
 
 
 };
+

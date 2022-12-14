@@ -11,6 +11,7 @@
 
 <body>
     <header>
+        <!-- transfer directly to the highscores page without doing the quiz -->
         <a id="HS-link" href="./highscores.html">
             <button>View Highscores</button>
         </a>
@@ -30,14 +31,17 @@
             Choose the right answer as fast as you can, but
             be careful! Wrong answers will cost you 10 seconds!
         </p>
+        <!-- Begins the game -->
         <button id="start-button">Click here to begin</button>
+
         <div class="options">
             <!-- 4 multiple choice answer buttons -->
             <ul class="options-list">
+                <!-- list of answer buttons to choose from -->
             </ul>
             <!-- buttons and text will be added by javascript dynamically -->
         </div>
-        <!-- list of answers to select from -->
+        <!-- input for playerName to save score data-->
         <form class="highscore-submit"></form>
     </container>
 </body>
