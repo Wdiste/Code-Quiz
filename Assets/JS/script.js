@@ -150,6 +150,7 @@ function renderQuiz() {
             var buttonList = document.createElement('ul');
             var button = document.createElement('button');
             button.type = 'button';
+            button.className = 'answer-buttons'
             button.textContent = quizContent[count].Answers[i];
             buttonList.appendChild(button);
             bttnEl.appendChild(buttonList);
@@ -215,7 +216,7 @@ function logHighScore() {
     var submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
     submitBtn.type = 'submit';
-    submitBtn.className = 'score-name';
+    submitBtn.className = 'score-btn';
 
     // again, append to the high score section of HTML
     scoreSubmit.appendChild(submitBtn);

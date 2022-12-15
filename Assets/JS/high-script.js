@@ -18,9 +18,11 @@ for (let i = 0; i < highscoresNameList.length; i++) {
 
     // add name to the text area using the element of the array of saved names
     newName.textContent = highscoresNameList[i];
+    newName.className = 'hsEl';
     newRow.appendChild(newName);
 
     // add name to the text area using the element of the data of saved scores
     newScore.textContent = localStorage.getItem(highscoresNameList[i]);
+    newScore.className = 'hsEl';
     newRow.appendChild(newScore);
 };

@@ -8,8 +8,14 @@ h1 {
     font-weight: bold;
 }
 
-#HS-link {
+.HS-link {
     text-decoration: none;
+    background-color: #a28f9d;
+    font-size: 75%;
+    font-weight: bold;
+    border-width: 5px;
+    width: 200px;
+    height: 75px;
 }
 
 .timer {
@@ -19,18 +25,30 @@ h1 {
 body {
     font-size: 30px;
     font-family: "Roboto", sans-serif;
-    background-color: #eff5f8;
-    color: #000000;
+    background-color: #5C574F;
+    color: white;
 }
 
 .quiz-area {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    background-color: #74776b;
+    height: 1000px;
     width: 1000px;
     margin: auto;
     padding: 5%;
     text-align: center;
+}
+
+.timer {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    height: 65px;
+    border-width: 5px;
+    border-style:  solid;
+    border-color:  black;
+    background-color: #74776b;
 }
 
 #start-button {
@@ -39,4 +57,58 @@ body {
     height: 60px;
     align-items: center;
     margin: 0 25%;
+    background-color: #a28f9d;
+    border-radius: 15px;
+}
+
+.answer-buttons {
+    font-size: 100%;
+    background-color: #a28f9d;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.score-name {
+    width: 300px;
+    height: 50px;
+    padding: 10px;
+}
+
+.score-btn {
+    background-color: #a28f9d;
+    font-size: 50%;
+    font-weight: bold;
+    width: 300px;
+    height: 50px;
+}
+
+/*  ----- highscores.html ------- */
+
+#highscore-header {
+    background-color: #74776b;
+    color: white;
+}
+
+#highscores-element {
+    background-color: #74776b;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #000000;
+    width: 65%;
+}
+
+.table-header {
+    background-color: #a28f9d;
+    color: #000000;
+    border: 5px solid #74776b;
+}
+
+.hsEl {
+    border-left: 5px solid #000000;
+    border-right: 5px solid #000000;
+    background-color: #5C574F;
+    color: white;
 }
