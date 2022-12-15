@@ -37,6 +37,8 @@ var questionHead = document.querySelector('#question-line');
 var hideTxt = document.querySelector('#rules');
 var bttnList = document.querySelector('.options');
 var bttnEl = document.querySelector('.options-list');
+
+// define timer outside function so we can clearInterval() when new question loads
 var timer;
 
 // retrieve highscore name array from localData to update it 
@@ -88,7 +90,7 @@ var quizContent = [
         correctAnswer: 'getElementById()',
     },
     {
-        question: 'Single line comments stat with this',
+        question: 'Single line comments start with this',
         Answers: [
             '//',
             '>>>>>>>',
@@ -113,6 +115,9 @@ var quizContent = [
 // count of quiz questions answered
 var count = 0;
 
+var score = 0;
+
+
 // start the game on button click
 startBtn.addEventListener('click', function (event) {
     event.preventDefault();
@@ -126,21 +131,20 @@ function startGame() {
     // hide instructions when quiz starts
     hideTxt.textContent = '';
     startBtn.style.display = 'none';
-    var score = 0;
 
     // send the count and score variables to keep the values updated
-    renderQuiz(count, score);
+    renderQuiz();
 };
 
-function renderQuiz(count, score) {
+function renderQuiz() {
     // make question appear on screen.  access quizContent array element
     // 'question' via 'count' global var
 
     // count is universal so we know when to stop, regardless of how many times checkAnswer calls the function
     if (count < 5) {
         clearInterval(timer);
-        startTimer()
-        questionHead.textContent = 'Question ' + i + ': ' + quizContent[count].question;
+        startTimer();
+        questionHead.textContent = 'Question ' + (count + 1) + ': ' + quizContent[count].question;
 
         for (var i = 0; i < 4; i++) {
             var buttonList = document.createElement('ul');
@@ -151,13 +155,14 @@ function renderQuiz(count, score) {
             bttnEl.appendChild(buttonList);
         };
     } else {    // At the end of game (count iterations) will send user to highscores
-        logHighScore(score);
+        clearInterval(timer);
+        logHighScore();
         return;
     };
-    checkAnswer(count, score);
+    checkAnswer();
 };
 
-function checkAnswer(count, score) {
+function checkAnswer() {
     bttnEl.addEventListener('click', function (event) {
         var selectedAnswer = event.target.textContent;
         console.log(selectedAnswer);
@@ -171,7 +176,8 @@ function checkAnswer(count, score) {
         // make sure to pass along the variables, they dont like to work globally sometimes
         count++;
         init();
-        renderQuiz(count, score);
+        renderQuiz();
+        return score;
     })
 };
 
@@ -184,7 +190,7 @@ function init() {
     bttnList.appendChild(bttnEl);
 };
 
-function logHighScore(score) {
+function logHighScore() {
     // clean up page 
     init();
 
@@ -231,23 +237,29 @@ function logHighScore(score) {
     });
 };
 
+// populates timer in top right and changes page if itme runs out
 function startTimer() {
     var timerText = document.querySelector('.timer');
-    var value = false;
     let seconds = 10;
 
     timer = setInterval(function(){
         seconds--;
 
-        timerText.textContent = seconds;
+        timerText.textContent = 'Time left:  ' + seconds;
         if(seconds == 0){
             clearInterval(timer);
             timerText.textContent = '';
             init();
-            value = true;
-            questionHead.textContent = 'Time\'s up!';
-        };
-    }, 1000);
+            questionHead.textContent = 'Time\'s up!'
 
-    return value;
+            setTimeout(function() {
+                init();
+                count++;
+                renderQuiz();
+
+            }, 2000) ;
+
+        };
+    }, 500);
+
 }
