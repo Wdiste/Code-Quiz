@@ -40,6 +40,7 @@ var bttnEl = document.querySelector('.options-list');
 
 // define timer outside function so we can clearInterval() when new question loads
 var timer;
+var seconds = 60;
 
 // retrieve highscore name array from localData to update it 
 // parse that JSON or the array of names wont save 
@@ -132,6 +133,7 @@ function startGame() {
     hideTxt.textContent = '';
     startBtn.style.display = 'none';
 
+    startTimer();
     // send the count and score variables to keep the values updated
     renderQuiz();
 };
@@ -142,8 +144,6 @@ function renderQuiz() {
 
     // count is universal so we know when to stop, regardless of how many times checkAnswer calls the function
     if (count < 5) {
-        clearInterval(timer);
-        startTimer();
         questionHead.textContent = 'Question ' + (count + 1) + ': ' + quizContent[count].question;
 
         for (var i = 0; i < 4; i++) {
@@ -171,6 +171,8 @@ function checkAnswer() {
         if (selectedAnswer == quizContent[count].correctAnswer) {
             score++;
             console.log(score);
+        } else {
+            seconds -= 10;
         };
         // record another iteration, clean the area, play the quiz again
         // make sure to pass along the variables, they dont like to work globally sometimes
@@ -193,6 +195,7 @@ function init() {
 function logHighScore() {
     // clean up page 
     init();
+    clearInterval(timer);
 
     // build a prompt on page to enter name for score save
     var scoreSubmit = document.querySelector('.highscore-submit');
@@ -240,8 +243,8 @@ function logHighScore() {
 // populates timer in top right and changes page if itme runs out
 function startTimer() {
     var timerText = document.querySelector('.timer');
-    let seconds = 10;
 
+    // timer is a global timer for the entire quiz
     timer = setInterval(function(){
         seconds--;
 
@@ -250,16 +253,12 @@ function startTimer() {
             clearInterval(timer);
             timerText.textContent = '';
             init();
-            questionHead.textContent = 'Time\'s up!'
+            questionHead.textContent = 'Time\'s up!';
 
+            // when out of time, run highscore code
             setTimeout(function() {
-                init();
-                count++;
-                renderQuiz();
-
-            }, 2000) ;
-
+                logHighScore();
+            }, 2000)
         };
-    }, 500);
-
+    }, 1000);
 }
