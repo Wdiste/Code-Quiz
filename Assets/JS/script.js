@@ -37,6 +37,7 @@ var questionHead = document.querySelector('#question-line');
 var hideTxt = document.querySelector('#rules');
 var bttnList = document.querySelector('.options');
 var bttnEl = document.querySelector('.options-list');
+var timer;
 
 // retrieve highscore name array from localData to update it 
 // parse that JSON or the array of names wont save 
@@ -137,6 +138,8 @@ function renderQuiz(count, score) {
 
     // count is universal so we know when to stop, regardless of how many times checkAnswer calls the function
     if (count < 5) {
+        clearInterval(timer);
+        startTimer()
         questionHead.textContent = 'Question ' + i + ': ' + quizContent[count].question;
 
         for (var i = 0; i < 4; i++) {
@@ -226,9 +229,25 @@ function logHighScore(score) {
         window.location.replace('./highscores.html');
 
     });
-
-    // let highscorePageButton = document.querySelector('HS-link');
-
-
 };
 
+function startTimer() {
+    var timerText = document.querySelector('.timer');
+    var value = false;
+    let seconds = 10;
+
+    timer = setInterval(function(){
+        seconds--;
+
+        timerText.textContent = seconds;
+        if(seconds == 0){
+            clearInterval(timer);
+            timerText.textContent = '';
+            init();
+            value = true;
+            questionHead.textContent = 'Time\'s up!';
+        };
+    }, 1000);
+
+    return value;
+}
